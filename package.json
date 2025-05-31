@@ -1,6 +1,6 @@
 {
-  "name": "@mori09/nest-js-bull-helper",
-  "version": "1.0.2",
+  "name": "@chinmay09/nest-js-bull-helper",
+  "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,6 +16,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@chinmay09/nest-js-bull-helper": "file:",
     "@mori09/nest-js-bull-helper": "file:",
     "@nestjs/bullmq": "^11.0.2",
     "@nestjs/common": "^11.1.2",
