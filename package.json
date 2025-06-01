@@ -1,7 +1,7 @@
 {
   "name": "@chinmay20409/nest-js-bull-helper",
   "version": "1.0.4",
-  "description": "",
+  "description": "A simple NestJS BullMQ logger helper to push logs to a Redis queue",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "publishConfig": {
@@ -11,8 +11,23 @@
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChinmayKuJena/nest-js-bull-helper.git"
+  },
+  "keywords": [
+    "nestjs",
+    "bullmq",
+    "logger",
+    "queue",
+    "redis",
+    "log-consumer",
+    "log-queue",
+    "custom-logger",
+    "nest-bull",
+    "nest-logger"
+  ],
+  "author": "Chinmay20409",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
@@ -20,7 +35,6 @@
     "@nestjs/bullmq": "^11.0.2",
     "@nestjs/common": "^11.1.2",
     "bullmq": "^5.53.1",
-    "nest-js-bull-helper": "file:",
     "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {
