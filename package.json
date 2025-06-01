@@ -1,6 +1,6 @@
 {
   "name": "@chinmay20409/nest-js-bull-helper",
-  "version": "1.0.4",
+  "version": "1.0.9",
   "description": "A simple NestJS BullMQ logger helper to push logs to a Redis queue",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
