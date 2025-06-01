@@ -1,27 +1,37 @@
-import { Inject, Injectable, LogLevel } from '@nestjs/common';
-import { InjectQueue } from '@nestjs/bullmq';
-import { Queue } from 'bullmq';
-import { LoggerModuleOptions } from './logger.module';
+import { Inject, Injectable, LogLevel, OnModuleInit } from '@nestjs/common';
+import { Queue, QueueEvents } from 'bullmq';
+import { getQueueToken } from '@nestjs/bullmq';
+import { ModuleRef } from '@nestjs/core';
+import { LoggerModuleOptions } from './type';
 
 @Injectable()
-export class CustomLoggerService {
+export class CustomLoggerService implements OnModuleInit {
+  private logQueue: Queue | undefined;
   private readonly projectId: string;
+  private readonly queueName: string;
 
   constructor(
-    @InjectQueue('order-logs') private readonly logQueue: Queue,
-    @Inject('LOGGER_MODULE_OPTIONS') private readonly options: LoggerModuleOptions,
+    private readonly moduleRef: ModuleRef,
+    @Inject('LOGGER_MODULE_OPTIONS')
+    private readonly options: LoggerModuleOptions,
   ) {
-    this.projectId = this.options.projectId;
+    this.projectId = options.projectId;
+    this.queueName = options.queueName;
+  }
+
+  onModuleInit() {
+    const queueToken = getQueueToken(this.queueName);
+    this.logQueue = this.moduleRef.get<Queue>(queueToken, { strict: false });
   }
 
   async error(message: any, trace?: string, context?: string) {
     console.error('error', message);
-    this.pushToQueue('error', message, context, trace);
+    await this.pushToQueue('error', message, context, trace);
   }
 
   async warn(message: any, context?: string) {
     console.warn('warn', message);
-    this.pushToQueue('warn', message, context);
+    await this.pushToQueue('warn', message, context);
   }
 
   private async pushToQueue(
@@ -40,6 +50,8 @@ export class CustomLoggerService {
     };
 
     const jobName = `${level}-log`;
-    await this.logQueue.add(jobName, log);
+    if (this.logQueue) {
+      await this.logQueue.add(jobName, log);
+    }
   }
 }

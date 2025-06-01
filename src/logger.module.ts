@@ -1,15 +1,16 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
 import { CustomLoggerService } from './custom-logger.service';
+import { LoggerModuleOptions } from './type';
 
-export interface LoggerModuleOptions {
-  connection: {
-    host: string;
-    port: number;
-  };
-  queueName: string;
-  projectId: string;
-}
+// export interface LoggerModuleOptions {
+//   connection: {
+//     host: string;
+//     port: number;
+//   };
+//   queueName: string;
+//   projectId: string;
+// }
 
 @Module({})
 export class LoggerModule {
